@@ -8,22 +8,27 @@ namespace ConsoleUI
     class Program
     {
         static void Main(string[] args)
+        {    //Data Transformation Object (DTOs)
+             ProductTest();
+           // CategoryTest();
+
+        }
+
+        private static void CategoryTest()
         {
-            ProductTest();
             CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
             foreach (var category in categoryManager.GetAll())
             {
                 Console.WriteLine(category.CategoryName);
             }
-
         }
 
         private static void ProductTest()
         {
             ProductManager productManager = new ProductManager(new EfProductDal());
-            foreach (var product in productManager.GetAllByCategoryId(1))
+            foreach (var product in productManager.GetProductDetailDtos())
             {
-                Console.WriteLine(product.ProductName);
+                Console.WriteLine(product.ProductName+" / "+product.CategoryName);
             }
         }
     }
