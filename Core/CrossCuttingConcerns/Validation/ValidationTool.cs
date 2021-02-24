@@ -7,7 +7,7 @@ namespace Core.CrossCuttingConcerns.Validation
 {
    public static class ValidationTool
     {
-        public static void Validate(IValidator validator,object entity)
+        public static void Validate(IValidator validator,object entity)//doğrulama kuralı  ve dorulanacak
         {
             var context = new ValidationContext<object>(entity);
             

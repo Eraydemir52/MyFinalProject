@@ -9,7 +9,8 @@ using System.Text;
 
 namespace Core.Aspects.Autofac.Validation
 {
-    public class ValidationAspect : MethodInterception
+    public class ValidationAspect : MethodInterception //==Aspect arayagiren
+        //azilecek metod
     {
         private Type _validatorType;
         public ValidationAspect(Type validatorType)
@@ -23,6 +24,7 @@ namespace Core.Aspects.Autofac.Validation
         }
         protected override void OnBefore(IInvocation invocation)
         {
+            //bu [p.voldationa referans verir ]
             var validator = (IValidator)Activator.CreateInstance(_validatorType);
             var entityType = _validatorType.BaseType.GetGenericArguments()[0];
             var entities = invocation.Arguments.Where(t => t.GetType() == entityType);//invication ==metod
