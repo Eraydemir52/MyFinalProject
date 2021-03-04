@@ -1,7 +1,11 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspect.Autofac;
 using Business.CCS;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Cahching;
+using Core.Aspects.Autofac.Performance;
+using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Business;
@@ -33,7 +37,10 @@ namespace Business.Concrete
          
             
         }
+        //Clain-->sahip olduğu söyler yetkilerdenbirine
+       [SecuredOperation("product.add")]
        [ValidationAspect(typeof (ProductValidator))]
+       [CacheRemoveAspect("IProductService.Get")]
         public IResult Add(Product product)
         {
             //Bir categoryde en fazla 10 ürün olabilir
@@ -54,7 +61,8 @@ namespace Business.Concrete
           
           
         }
-
+       // [PerformanceAspect(5)]//eğer bu işlem 5 saniyeden fazla çalışırsa bana bildir
+        [CacheAspect]//key,value
         public IDataResult<List<Product>> GetAll()
         {
             //İş kodları
@@ -68,12 +76,12 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Product>>(_productDal.GetAll(),Messages.ProductListed);
            
         }
-
+        
         public IDataResult<List<Product>> GetAllByCategoryId(int id)
         {
             return new SuccessDataResult<List<Product>>( _productDal.GetAll(p => p.CategoryId == id));
         }
-
+        [CacheAspect]
         public IDataResult<Product> GetById(int productId)
         {
             return new SuccessDataResult<Product>( _productDal.Get(p => p.ProductId == productId));
@@ -90,6 +98,7 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(ProductValidator))]
+        [CacheRemoveAspect("IProductService.Get")]//bellekte get leri kalrır onun için Ip daki hepsini siler
         public IResult Update(Product product)
         {
             throw new NotImplementedException();
@@ -127,6 +136,12 @@ namespace Business.Concrete
             }
             return new SuccessResult();
         }
-       
+        [TransactionScopeAspect]
+        public IResult AddTransactionalTest(Product product)
+        {
+            _productDal.Update(product);
+            _productDal.Add(product);
+            return new SuccessResult(Messages.ProductUpdated);
+        }
     }
 }
