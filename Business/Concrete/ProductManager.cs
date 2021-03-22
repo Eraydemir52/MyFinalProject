@@ -38,11 +38,12 @@ namespace Business.Concrete
             
         }
         //Clain-->sahip olduğu söyler yetkilerdenbirine
-       [SecuredOperation("product.add")]
+      // [SecuredOperation("product.add")]
        [ValidationAspect(typeof (ProductValidator))]
        [CacheRemoveAspect("IProductService.Get")]
         public IResult Add(Product product)
         {
+
             //Bir categoryde en fazla 10 ürün olabilir
             //business codes ürün ekleme şartı sağlarsa ekler                                                              //validation--ürün uygunluğunu kontrol eder
             //busines codes

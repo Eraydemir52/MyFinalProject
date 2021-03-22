@@ -26,9 +26,9 @@ namespace Core.Utilities.Security.JWT
         public AccessToken CreateToken(User user, List<OperationClaim> operationClaims)
         {
             _accessTokenExpiration = DateTime.Now.AddMinutes(_tokenOptions.AccessTokenExpiration);
-            var securityKey = SecurityKeyHelper.CreateSecurityKey(_tokenOptions.SecurityKey);
-            var signingCredentials = SigningCredentialsHelper.CreateSigningCredentials(securityKey);
-            var jwt = CreateJwtSecurityToken(_tokenOptions, user, signingCredentials, operationClaims);
+            var securityKey = SecurityKeyHelper.CreateSecurityKey(_tokenOptions.SecurityKey);//token oluşturmak için gereken anahtar
+            var signingCredentials = SigningCredentialsHelper.CreateSigningCredentials(securityKey);//anahtar için kullanılan algoritma
+            var jwt = CreateJwtSecurityToken(_tokenOptions, user, signingCredentials, operationClaims);//değerleri atamak için metod
             var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
             var token = jwtSecurityTokenHandler.WriteToken(jwt);
 
@@ -54,10 +54,10 @@ namespace Core.Utilities.Security.JWT
             return jwt;
         }
 
-        private IEnumerable<Claim> SetClaims(User user, List<OperationClaim> operationClaims)
+        private IEnumerable<Claim> SetClaims(User user, List<OperationClaim> operationClaims)//Claim için metod
         {
             var claims = new List<Claim>();
-            claims.AddNameIdentifier(user.Id.ToString());
+            claims.AddNameIdentifier(user.Id.ToString());//bunlar microsoft da yok onun için estension(metod genişletme) kullanıllır
             claims.AddEmail(user.Email);
             claims.AddName($"{user.FirstName} {user.LastName}");//Dolar işareti +kullamadan yapmayı sağlar sağlar
             claims.AddRoles(operationClaims.Select(c => c.Name).ToArray());

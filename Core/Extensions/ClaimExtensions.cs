@@ -5,11 +5,11 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 
-namespace Core.Extensions
+namespace Core.Extensions//************Extension yazmak için class ın static olması lazım
 {
     public static class ClaimExtensions//var olan classa yeni metod ekler
     {
-        public static void AddEmail(this ICollection<Claim> claims, string email)
+        public static void AddEmail(this ICollection<Claim> claims, string email)//Bu metod ICollection<Claim> içine eklenicek demek
         {
             claims.Add(new Claim(JwtRegisteredClaimNames.Email, email));
         }

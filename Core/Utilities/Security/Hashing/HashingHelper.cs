@@ -11,7 +11,7 @@ namespace Core.Utilities.Security.Hashing
             using (var hmac=new System.Security.Cryptography.HMACSHA512())
             {
                 passwordSalt = hmac.Key;//her kulanıcı için ayrı key tutar
-                passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));//-->by değerini almak içim
+                passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));//--> girilen parolanın byt değerini almak içim
 
             }
         }

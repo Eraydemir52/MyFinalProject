@@ -17,7 +17,7 @@ namespace Business.Constants
         public static string ProductNameAlreadyExists = "Bu isimde ürün var !!!";
         public static string CategoryLimitExceded="Kategori limiti aşıldığı için yeni ürün eklenemiyor!!!";
         public static string AuthorizationDenied="Yetkiniz yok.";
-        public static string UserRegistered="Kullanıcı kayıtlı.";
+        public static string UserRegistered="Kullanıcı kayıtedildi.";
         public static string UserNotFound="Kullanıcı bulunamadı";
         public static string PasswordError="Parola hatalı";
         public static string UserAlreadyExists="Kullanıcı zaten var.";

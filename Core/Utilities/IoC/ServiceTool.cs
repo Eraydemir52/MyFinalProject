@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Core.Utilities.IoC
 {
-    public static class ServiceTool
+    public static class ServiceTool//Bunun sayesinde microsofttta olan Ihttp lere   builder.RegisterType<AuthManager>().As<IAuthService>(); bunu vere biliyorum CoreModulde(Core.DependencyResolvers)
     {
         public static IServiceProvider ServiceProvider { get; private set; }
 

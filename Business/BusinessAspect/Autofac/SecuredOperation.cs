@@ -12,7 +12,7 @@ using Core.Extensions;
 namespace Business.BusinessAspect.Autofac
 { 
 
-    //JWT için 
+    //JWT için //Bu bir aspect
     public class SecuredOperation : MethodInterception
     {
         private string[] _roles;
@@ -25,7 +25,7 @@ namespace Business.BusinessAspect.Autofac
 
         }
 
-        protected override void OnBefore(IInvocation invocation)
+        protected override void OnBefore(IInvocation invocation)//bu kullanıcının rolerini gez ve roleri varsa döndür yoksa messages(yetkkiniz yok) gönder
         {
             var roleClaims = _httpContextAccessor.HttpContext.User.ClaimRoles();
             foreach (var role in _roles)
